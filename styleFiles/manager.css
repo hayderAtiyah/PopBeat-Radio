@@ -1,0 +1,198 @@
+/* to keep the page only one page */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* to disable scrolling*/
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleName {
+    border: 4px solid #fd1212;
+    border-style: groove;
+    padding: 25px;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color: #e021d0;
+    text-shadow: 4px 4px 4px rgb(153, 120, 120);
+    animation: stretch 1.5s ease-out infinite;
+    animation: letterSpacing 2s forwards;
+    line-height: 0.5;
+    font-weight: 900;
+}
+
+@keyframes letterSpacing {
+    0% {
+        letter-spacing: 100px;
+        transform: perspective(500px) rotateY(20deg);
+        color: #b12bf0;
+    }
+    25% {
+        letter-spacing: 2px;
+        transform: perspective(500px) rotateY(-20deg);
+        color: #e74c3c;
+    }
+    50% {
+        letter-spacing: 30px;
+        transform: perspective(500px) rotateY(10deg);
+        color: #832c2c;
+    }
+    100% {
+        letter-spacing: normal;
+        transform: perspective(500px) rotateY(0deg);
+        color: #e23bbe;
+    }
+}
+
+.tableStyle {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border: 2px outset #c091b6;
+    background-color: rgba(236, 240, 241, 0.4);
+    margin: auto;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.tableStyle td,
+th {
+    border: 2px outset #e23bbe;
+    padding: 5px;
+    text-align: center;
+    border-radius: 25px;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.tableStyle td:hover {
+    transition: all 0.2s step-start;
+    background-color: #e4258e;
+    color: white;
+    opacity: 0.8;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+}
+
+#reportViewDetialsButton {
+    background-color: #c091b6;
+}
+
+#reportViewDetialsButton:hover {
+    background-color: #ffffff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: all 0.2s ease-in;
+    border-radius: 40px;
+    box-shadow: 0 10px 8px rgb(255, 255, 255);
+}
+
+#reportTitleID {
+    text-align: center;
+    font-size: 50px;
+    letter-spacing: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #e23bbe;
+}
+
+#reportViewDetialsButton {
+    float: right;
+}
+
+.dateOfAssign {
+    font-size: 18px;
+    color: #333;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dateOfAssign:hover {
+    transform: scale(3);
+    color: #ffffff;
+    background-color: rgb(255, 0, 191);
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#assignDJ {
+    position: absolute;
+    top: 225px;
+    right: 100px;
+}
+
+#calendar {
+    background-color: #d374c3;
+    border: 2px solid #95a5a6;
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+    font-size: 30px;
+}
+
+#calendar:hover {
+    background-color: #dbd9cf;
+    transition: background-color 0.3s ease;
+}
+
+#calendar:focus {
+    outline: none;
+    border-color: #f5f6ff;
+    transition: all 0.3s ease;
+}
+
+#reportTable {
+    width: 40%;
+}
+
+#assignTable {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#wallpaper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#searchBox {
+    margin-top: 10px;
+    border: 2px dashed #cc43aa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#searchBox:hover {
+    transform: scale(1.05);
+    background-color: pink;
+    transition: transform 0.2s ease;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+    border: 2px solid black;
+}
+
+#viewAllReports {
+    font-size: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#viewAllReports:hover {
+    background-color: #dbd9cf;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    text-shadow: #b12bf0;
+}
