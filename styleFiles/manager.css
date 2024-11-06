@@ -82,11 +82,13 @@ th {
     cursor: pointer;
 }
 
-#reportViewDetialsButton {
+#reportViewDetialsButton,
+#reportView {
     background-color: #c091b6;
 }
 
-#reportViewDetialsButton:hover {
+#reportViewDetialsButton:hover,
+#reportView:hover {
     background-color: #ffffff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: all 0.2s ease-in;
@@ -102,7 +104,8 @@ th {
     color: #e23bbe;
 }
 
-#reportViewDetialsButton {
+#reportViewDetialsButton,
+#reportView {
     float: right;
 }
 
@@ -195,4 +198,49 @@ th {
     transition: background-color 0.3s ease;
     cursor: pointer;
     text-shadow: #b12bf0;
+}
+
+#details-box {
+    display: none;
+    width: 800px;
+    height: 500px;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #dd6da1, #fd40fd);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease, background 0.5s ease;
+}
+
+#details-box:hover {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, #e018b5, #f3048f);
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.4);
+}
+
+#details-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(26, 5, 5);
+    background: linear-gradient(135deg, #dd6da1, #fd40fd);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#details-button:hover {
+    background: linear-gradient(135deg, #fc7fe1, #c304f3);
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }

@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styleFiles/manager.css" />
     <title>Mangaer Page</title>
-  </head>
+</head>
 
-  <body>
+<body>
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+    </script>
     <img id="wallpaper" src="../photos/taylorWallpaper.jpg" alt="taylorPic" />
 
     <h1 class="titleName">PopBeat Radio Mangament</h1>
 
     <ul style="float: left">
-      <li style="list-style: none">
-        <a href="#"
-          ><button
+        <li style="list-style: none">
+            <a href="#"><button onClick="alert('This will take you to Home. will be done in P4.')"
             id="reportViewDetialsButton"
             style="width: 200px; height: 50px"
           >
@@ -25,7 +30,7 @@
       </li>
       <li style="list-style: none">
         <a href="#"
-          ><button
+          ><button onclick="refreshPage()"
             id="reportViewDetialsButton"
             style="width: 200px; height: 50px; margin-top: 20px"
           >
@@ -35,7 +40,7 @@
       </li>
       <li style="list-style: none">
         <a href="#"
-          ><button
+          ><button onClick="alert('This will take you to DJ page. will be done in P4.')"
             id="reportViewDetialsButton"
             style="width: 200px; height: 50px; margin-top: 20px"
           >
@@ -45,7 +50,7 @@
       </li>
       <li style="list-style: none">
         <a href="#"
-          ><button
+          ><button onClick="alert('This will take you to Producer Page. will be done in P4.')"
             id="reportViewDetialsButton"
             style="width: 200px; height: 50px; margin-top: 20px"
           >
@@ -54,8 +59,7 @@
         >
       </li>
       <li style="list-style: none">
-        <a href="#"
-          ><button
+        <a href="#"><button 
             id="reportViewDetialsButton"
             style="
               width: 200px;
@@ -83,10 +87,20 @@
         <td style="text-align: center">Producer Assigned</td>
         <td style="text-align: center">DJ Played</td>
       </tr>
+
+  
+    
     </table>
-    <!-- <tr id="viewAll">
-        <th id="viewAllReports" colspan="2">VIEW ALL REPORT IN OUR DATEBASE</th>
-      </tr> -->
+    <div id="details-box">
+      <h2>Details will be shown here</h2>
+      <p>Click on Cancel to go back.</p>
+      <button id = "details-button">Cancel</button>
+  </div>
+  
+  
+
+
+  
 
     <div id="assignDJ">
       <h1
@@ -104,10 +118,12 @@
 
       <table id="assignTable" class="tableStyle">
         <tr>
+
           <td>
             DJ assigned to song
             <span><button id="reportViewDetialsButton">delete</button></span>
           </td>
+
         </tr>
         <tr>
           <td>
