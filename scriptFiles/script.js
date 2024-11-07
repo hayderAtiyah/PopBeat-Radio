@@ -68,8 +68,9 @@ function generateAssignDJ(DjName, song, date) {
     let deleteBtn = document.createElement("button");
     deleteBtn.id = "deleteBtn";
     deleteBtn.textContent = "DELETE";
+    // Remove the entire row
     deleteBtn.addEventListener("click", function() {
-        tr.remove(); // Remove the entire row from the DOM
+        tr.remove(); 
     });
     span.appendChild(deleteBtn);
     td.appendChild(span);
@@ -108,12 +109,15 @@ function shortCutTrigger(key1, key2, featureID) {
 
 
 
-generateReportTable(reportCounter);
-generateAssignDJ("hayder", "laa", "11/06/2024");
-generateAssignDJ("ali", "laa", "11/06/2024");
-generateAssignDJ("ahmed", "laa", "11/06/2024");
 
+
+
+generateReportTable(reportCounter);
 //shortcut to search.
 shortCutTrigger("shift", "f", "searchBox");
 //shortcut to apply.
 shortCutTrigger("shift", "enter", "applyKey");
+generateAssignDJ("hayder", "laa", "11/06/2024");
+generateAssignDJ("ali", "laa", "11/06/2024");
+generateAssignDJ("ahmed", "laa", "11/06/2024");
+
