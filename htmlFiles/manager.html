@@ -115,32 +115,11 @@
       </h1>
       <input type="date" id="calendar" name="date" />
       <br />
-
       <table id="assignTable" class="tableStyle">
-        <tr>
-
-          <td>
-            DJ assigned to song
-            <span><button id="reportViewDetialsButton">delete</button></span>
-          </td>
-
-        </tr>
-        <tr>
-          <td>
-            DJ assigned to song
-            <span><button id="reportViewDetialsButton">delete</button></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            DJ assigned to song
-            <span><button id="reportViewDetialsButton">delete</button></span>
-          </td>
-        </tr>
       </table>
 
       <button
-        id="reportViewDetialsButton"
+        id="applyKey"
         style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px"
       >
         Apply
@@ -151,6 +130,10 @@
       >
         Edit
       </button>
+
+
+
+
       <form action="/search" method="GET">
         <input
           id="searchBox"
@@ -166,7 +149,11 @@
           Search
         </button>
       </form>
-      <button
+
+
+
+
+      <button onclick="refreshPage()"
         id="reportViewDetialsButton"
         style="width: 400px; height: 50px; margin-top: 100px; font-size: 30px"
       >

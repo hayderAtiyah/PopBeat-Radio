@@ -1,5 +1,8 @@
 let reportCounter = 0;
 let assignDJCounter = 0;
+let assignDJArr = [];
+
+let log = console.log;
 /**
  * method to display the report whenever it gets one.
  * @param {to keep track of the current report, will be changed to stored in data base later} reportCounter
@@ -48,15 +51,69 @@ function generateReportTable(reportCounter) {
     }, 500);
 }
 
+/**
+ * to cancel the view details after it been clicked.
+ */
 document.getElementById("details-button").addEventListener("click", () => {
-    document.getElementById("details-box").style.display = "none";
-})
-
-
-function generateAssignDJ() {
-
+        document.getElementById("details-box").style.display = "none";
+    })
+    /**
+     * method to dynamically assign Dj to a song with a date. 
+     */
+function generateAssignDJ(DjName, song, date) {
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+    td.textContent = DjName + " assigned to " + song + " " + date;
+    let span = document.createElement("span");
+    let deleteBtn = document.createElement("button");
+    deleteBtn.id = "deleteBtn";
+    deleteBtn.textContent = "DELETE";
+    deleteBtn.addEventListener("click", function() {
+        tr.remove(); // Remove the entire row from the DOM
+    });
+    span.appendChild(deleteBtn);
+    td.appendChild(span);
+    tr.appendChild(td);
+    assignDJArr.push(tr);
+    log(assignDJArr);
+    assignDJCounter++;
+    document.getElementById("assignTable").appendChild(tr);
 }
 
 
+let keysPressed = {};
+/**
+ * method to create a shortcut of any two keys and buttons as featureID or it could be search bar.
+ */
+function shortCutTrigger(key1, key2, featureID) {
+    document.addEventListener("keydown", (event) => {
+        keysPressed[event.key.toLowerCase()] = true;
+        if (keysPressed[key1.toLowerCase()] && keysPressed[key2.toLowerCase()]) {
+            event.preventDefault();
+            document.getElementById(featureID).focus();
+            document.getElementById(featureID).click();
+            keysPressed[key1.toLowerCase()] = false;
+            keysPressed[key2.toLowerCase()] = false;
+            log("her");
+        }
+    })
+    document.addEventListener("keyup", (event) => {
+        keysPressed[event.key.toLowerCase()] = false;
+    });
+}
+
+
+
+
+
+
+
 generateReportTable(reportCounter);
-displayDetails();
+generateAssignDJ("hayder", "laa", "11/06/2024");
+generateAssignDJ("ali", "laa", "11/06/2024");
+generateAssignDJ("ahmed", "laa", "11/06/2024");
+
+//shortcut to search.
+shortCutTrigger("shift", "f", "searchBox");
+//shortcut to apply.
+shortCutTrigger("shift", "enter", "applyKey");
