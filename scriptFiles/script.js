@@ -3,6 +3,22 @@ let assignDJCounter = 0;
 let assignDJArr = [];
 
 let log = console.log;
+
+let DjsAssigned = [];
+
+function assignDj(name, song, date) {
+    this.name;
+    this.song;
+    this.date;
+};
+let editBox = document.getElementById("editBox");
+let editRadioGroup = document.getElementById("radio-group");
+let songAssignByDjFelid = document.getElementById("song");
+let addSongButton = document.getElementById("addSongButton");
+let editCalander = document.getElementById("editCalander");
+
+
+
 /**
  * method to display the report whenever it gets one.
  * @param {to keep track of the current report, will be changed to stored in data base later} reportCounter
@@ -70,7 +86,7 @@ function generateAssignDJ(DjName, song, date) {
     deleteBtn.textContent = "DELETE";
     // Remove the entire row
     deleteBtn.addEventListener("click", function() {
-        tr.remove(); 
+        tr.remove();
     });
     span.appendChild(deleteBtn);
     td.appendChild(span);
@@ -105,6 +121,86 @@ function shortCutTrigger(key1, key2, featureID) {
 
 
 
+function restEditUI() {
+    editBox.style.display = "none";
+    editRadioGroup.style.display = "none";
+    songAssignByDjFelid.style.display = "none";
+    addSongButton.style.display = "none";
+    editCalander.style.display = "none";
+    songAssignByDjFelid.value = "";
+    editRadioGroup.querySelectorAll("input").forEach(input => input.checked = false);
+    editCalander.value = "";
+
+
+}
+
+
+function assignDjEdit() {
+    restEditUI();
+
+    document.addEventListener("click", () => {
+        editBox.style.display = "block";
+        editRadioGroup.style.display = "block";
+        editRadioGroup.addEventListener("change", (event) => {
+            event.preventDefault();
+            const DjSelected = document.querySelector(":checked");
+            if (DjSelected) {
+                editRadioGroup.style.display = "none";
+
+                songAssignByDjFelid.style.display = "block";
+                addSongButton.style.display = "block";
+
+                addSongButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    if (songAssignByDjFelid.value === "") {
+                        return;
+                    }
+                    songAssignByDjFelid.style.display = "none";
+                    editCalander.style.display = "block";
+
+                    editCalander.addEventListener("change", (event) => {
+                        const datePicked = event.target.value;
+                        if (datePicked === "") {
+                            return;
+                        }
+                        addSongButton.addEventListener("click", (event) => {
+                            event.preventDefault();
+                            const assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+                            DjsAssigned.push(assignedDJ_to_Date);
+
+                            addSongButton.style.display = "none";
+                            editCalander.style.display = "none";
+                            generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+                            addDiv.style.display = "block";
+                            DjSelected = null;
+                            datePicked = null;
+                            editRadioGroup.removeEventListener("change", handleEditRadioGroupChange);
+                            addSongButton.removeEventListener("click", handleAddSong);
+                            editCalander.removeEventListener("change", handleEditCalanderChange);
+
+                            log(DjsAssigned[0]);
+                        }, { once: false })
+                    }, { once: true });
+                }, { once: false });
+            }
+        }, { once: true });
+    }, { once: true });
+}
+
+
+document.getElementById("yesBtnId").addEventListener("click", () => {
+    addDiv.style.display = "none";
+    editBox.style.display = "block";
+    editRadioGroup.style.display = "block";
+    //before I go into this method I wanna make sure that everything so it will be brand new
+    assignDjEdit();
+});
+
+
+
+document.getElementById("noBtnId").addEventListener("click", () => {
+    restEditUI();
+});
 
 
 
@@ -112,6 +208,7 @@ function shortCutTrigger(key1, key2, featureID) {
 
 
 
+restEditUI();
 generateReportTable(reportCounter);
 //shortcut to search.
 shortCutTrigger("shift", "f", "searchBox");
@@ -120,4 +217,4 @@ shortCutTrigger("shift", "enter", "applyKey");
 generateAssignDJ("hayder", "laa", "11/06/2024");
 generateAssignDJ("ali", "laa", "11/06/2024");
 generateAssignDJ("ahmed", "laa", "11/06/2024");
-
+assignDjEdit();
