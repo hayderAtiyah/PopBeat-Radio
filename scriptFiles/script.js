@@ -138,7 +138,7 @@ function restEditUI() {
 
 }
 
-
+//error when adding, after clicking no then edit again.
 function assignDjEdit() {
 
     document.getElementById("editBtnKey").addEventListener("click", () => {
@@ -168,17 +168,26 @@ function assignDjEdit() {
                         } else {
                             addSongButton.addEventListener("click", (event) => {
                                 event.preventDefault();
-                                const assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
-                                DjsAssigned.push(assignedDJ_to_Date);
+                                let assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
 
                                 addSongButton.style.display = "none";
                                 editCalander.style.display = "none";
-                                generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
-                                addDiv.style.display = "block";
+                                if (DjSelected.nextElementSibling != null && datePicked != null) {
+                                    let assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
 
-                                log(DjsAssigned);
-                                DjSelected = null;
-                                datePicked = null;
+                                    DjsAssigned.push(assignedDJ_to_Date);
+
+                                    generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+                                    addDiv.style.display = "block";
+                                    DjsAssigned.forEach(dj => console.log(`DJ: ${dj.name}, Song: ${dj.song}, Date: ${dj.date}`));
+                                    log(`DjSelected : ${DjSelected.textContent} ------ DjSelected.next : ${DjSelected.nextElementSibling.textContent} ---- datePicked  ${datePicked}`)
+                                    DjSelected.nextElementSibling = null;
+                                    datePicked = null;
+
+                                }
+
+
+
                             }, { once: false })
                         }
 
