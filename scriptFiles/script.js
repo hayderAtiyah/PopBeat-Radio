@@ -16,7 +16,8 @@ let editRadioGroup = document.getElementById("radio-group");
 let songAssignByDjFelid = document.getElementById("song");
 let addSongButton = document.getElementById("addSongButton");
 let editCalander = document.getElementById("editCalander");
-
+let addDiv = document.getElementById("addDiv");
+let DjSelected = null;
 
 
 /**
@@ -122,28 +123,30 @@ function shortCutTrigger(key1, key2, featureID) {
 
 
 function restEditUI() {
+    // Hide all elements
     editBox.style.display = "none";
     editRadioGroup.style.display = "none";
     songAssignByDjFelid.style.display = "none";
     addSongButton.style.display = "none";
     editCalander.style.display = "none";
-    songAssignByDjFelid.value = "";
-    editRadioGroup.querySelectorAll("input").forEach(input => input.checked = false);
-    editCalander.value = "";
+    addDiv.style.display = "none";
 
+    // Clear all input values and selections
+    songAssignByDjFelid.value = "";
+    editCalander.value = "";
+    editRadioGroup.querySelectorAll("input").forEach(input => input.checked = false);
 
 }
 
 
 function assignDjEdit() {
-    restEditUI();
 
-    document.addEventListener("click", () => {
+    document.getElementById("editBtnKey").addEventListener("click", () => {
         editBox.style.display = "block";
         editRadioGroup.style.display = "block";
         editRadioGroup.addEventListener("change", (event) => {
             event.preventDefault();
-            const DjSelected = document.querySelector(":checked");
+            let DjSelected = document.querySelector(":checked");
             if (DjSelected) {
                 editRadioGroup.style.display = "none";
 
@@ -159,40 +162,42 @@ function assignDjEdit() {
                     editCalander.style.display = "block";
 
                     editCalander.addEventListener("change", (event) => {
-                        const datePicked = event.target.value;
+                        let datePicked = event.target.value;
                         if (datePicked === "") {
                             return;
+                        } else {
+                            addSongButton.addEventListener("click", (event) => {
+                                event.preventDefault();
+                                const assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+                                DjsAssigned.push(assignedDJ_to_Date);
+
+                                addSongButton.style.display = "none";
+                                editCalander.style.display = "none";
+                                generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+                                addDiv.style.display = "block";
+
+                                log(DjsAssigned);
+                                DjSelected = null;
+                                datePicked = null;
+                            }, { once: false })
                         }
-                        addSongButton.addEventListener("click", (event) => {
-                            event.preventDefault();
-                            const assignedDJ_to_Date = new assignDj(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
-                            DjsAssigned.push(assignedDJ_to_Date);
 
-                            addSongButton.style.display = "none";
-                            editCalander.style.display = "none";
-                            generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
-                            addDiv.style.display = "block";
-                            DjSelected = null;
-                            datePicked = null;
-                            editRadioGroup.removeEventListener("change", handleEditRadioGroupChange);
-                            addSongButton.removeEventListener("click", handleAddSong);
-                            editCalander.removeEventListener("change", handleEditCalanderChange);
-
-                            log(DjsAssigned[0]);
-                        }, { once: false })
                     }, { once: true });
                 }, { once: false });
             }
-        }, { once: true });
+        }, { once: false });
     }, { once: true });
 }
 
 
 document.getElementById("yesBtnId").addEventListener("click", () => {
+    restEditUI();
+
     addDiv.style.display = "none";
     editBox.style.display = "block";
     editRadioGroup.style.display = "block";
     //before I go into this method I wanna make sure that everything so it will be brand new
+
     assignDjEdit();
 });
 
@@ -200,6 +205,7 @@ document.getElementById("yesBtnId").addEventListener("click", () => {
 
 document.getElementById("noBtnId").addEventListener("click", () => {
     restEditUI();
+    assignDjEdit();
 });
 
 
@@ -207,8 +213,8 @@ document.getElementById("noBtnId").addEventListener("click", () => {
 
 
 
-
 restEditUI();
+
 generateReportTable(reportCounter);
 //shortcut to search.
 shortCutTrigger("shift", "f", "searchBox");
