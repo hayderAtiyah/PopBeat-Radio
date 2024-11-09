@@ -1,3 +1,5 @@
+import Questions from './questions.js';
+
 let reportCounter = 0;
 let assignDJCounter = 0;
 let assignDJArr = [];
@@ -260,6 +262,46 @@ function loadExistingAssignments() {
         });
     }
 }
+
+let checkQuestionClicked = false;
+const questionsInstance = new Questions();
+
+const questionList = document.getElementById("QuestionList");
+const questionButton = document.getElementById("questionKey");
+
+questionButton.addEventListener("click", () => {
+    if (checkQuestionClicked) {
+        questionList.style.display = "none";
+        checkQuestionClicked = false;
+    } else {
+        questionList.style.display = "block";
+        
+        if (questionList.children.length === 0) {
+            questionsInstance.getAll().forEach(qa => {
+                const questionCard = document.createElement("div");
+                questionCard.classList.add("question-card");
+
+                const questionText = document.createElement("div");
+                questionText.classList.add("question-text");
+                questionText.textContent = qa.question;
+
+                const answerText = document.createElement("div");
+                answerText.classList.add("answer-text");
+                answerText.textContent = qa.answer;
+
+                questionCard.appendChild(questionText);
+                questionCard.appendChild(answerText);
+
+                questionCard.addEventListener("click", () => {
+                    questionCard.classList.toggle("active");
+                });
+
+                questionList.appendChild(questionCard);
+            });
+        }
+        checkQuestionClicked = true;
+    }
+});
 
 
 

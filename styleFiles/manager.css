@@ -86,7 +86,7 @@ th {
 #reportView,
 #applyKey,
 #deleteBtn,
-#editBtnKey {
+#editBtnKey,#questionKey {
     background-color: #c091b6;
 }
 
@@ -94,7 +94,7 @@ th {
 #reportView:hover,
 #applyKey:hover,
 #deleteBtn:hover,
-#editBtnKey:hover {
+#editBtnKey:hover,#questionKey:hover {
     background-color: #ffffff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: all 0.2s ease-in;
@@ -114,7 +114,7 @@ th {
 #reportView,
 #applyKey,
 #deleteBtn,
-#editBtnKey {
+#editBtnKey,#questionKey {
     float: right;
 }
 
@@ -608,4 +608,67 @@ label[for="song"] {
         box-shadow: 0 15px 25px rgba(255, 20, 147, 0.7);
         transform: scale(1.05);
     }
+}
+
+#QuestionList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fceaff, #ffe6f7);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.question-card {
+    background-color: #fff0f5;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 10px rgba(255, 192, 203, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.question-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 12px rgba(255, 192, 203, 0.5);
+}
+
+.question-card .question-text {
+    color: #d147a3;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.question-card .answer-text {
+    display: none;
+    color: #6a0dad;
+    margin-top: 10px;
+    font-size: 1em;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.question-card.active .answer-text {
+    display: block;
+    opacity: 1;
+}
+
+.question-card:after {
+    content: "+";
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5em;
+    color: #d147a3;
+    transition: transform 0.3s ease;
+}
+
+.question-card.active:after {
+    transform: rotate(45deg);
 }

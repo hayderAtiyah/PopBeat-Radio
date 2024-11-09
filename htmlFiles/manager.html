@@ -60,22 +60,31 @@
           </button></a
         >
       </li>
-      <li style="list-style: none">
-        <a href="#"><button 
-            id="reportViewDetialsButton"
+      
+      <li style="list-style: none; position: absolute; bottom: 20px; width: 100%;">
+        <button 
+            id="questionKey"
             style="
-              width: 200px;
-              height: 50px;
-              margin-top: 400px;
-              border: 2px dashed rgb(131, 112, 112);
-              font-size: 30px;
-            "
-          >
+                width: 200px;
+                height: 50px;
+                border: 2px dashed rgb(131, 112, 112);
+                font-size: 30px;
+                display: center;
+                margin: auto;
+                display: block;
+                float: left;
+            ">
             Questions?
-          </button></a
-        >
-      </li>
+        </button>
+        <div id="QuestionList" style="display: inline; float: left;padding-left: 20px;display: none;">
+
+        </div>
+        
+    </li>
+      
     </ul>
+ 
+
 
     <table
       id="reportTable"
@@ -90,15 +99,18 @@
         <td style="text-align: center">DJ Played</td>
       </tr>
 
-  
+
     
     </table>
+
+
     <div id="details-box">
       <h2>Details will be shown here</h2>
       <p>Click on Cancel to go back.</p>
       <button id = "details-button">Cancel</button>
   </div>
-  
+
+
   
 
 
@@ -155,7 +167,7 @@
           
         </form>
       </div>
-
+    
 
       <button
         id="applyKey"
@@ -169,7 +181,6 @@
       >
         Edit
       </button>
-    
 
 
 
@@ -190,16 +201,19 @@
         </button>
       </form>
 
-
-
-
+     
+  
       <button onclick="refreshPage()"
         id="reportViewDetialsButton"
         style="width: 400px; height: 50px; margin-top: 100px; font-size: 30px"
       >
         Clear any change
       </button>
+
     </div>
-    <script src="../scriptFiles/script.js"></script>
+
+    <script type="module" src="../scriptFiles/script.js"></script>
+    <script type="module" src="../scriptFiles/questions.js"></script>
+
   </body>
 </html>
