@@ -67,7 +67,7 @@ function generateReportTable(reportCounter) {
 
 
         generateReportTable(reportCounter);
-    }, 500);
+    }, 5000);
 }
 
 /**
