@@ -1,0 +1,15 @@
+{
+  "name": "popbeat-radio",
+  "version": "1.0.0",
+  "description": "To run it, unzip the project. then import the whole folder to IDE such as Visual studio code then just go to manager.html and open it with live server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
