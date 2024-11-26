@@ -1,3 +1,4 @@
+import Questions from './questions.js';
 let reportCounter = 0;
 let assignDJCounter = 0;
 let assignDJArr = [];
@@ -470,7 +471,7 @@ document.getElementById("reportViewDetialsButtonBack").addEventListener('click',
 
 
 
-/*
+
 let checkQuestionClicked = false;
 const questionsInstance = new Questions();
 
@@ -510,7 +511,7 @@ questionButton.addEventListener("click", () => {
         checkQuestionClicked = true;
     }
 });
-*/
+
 
 
 //loadExistingAssignments();

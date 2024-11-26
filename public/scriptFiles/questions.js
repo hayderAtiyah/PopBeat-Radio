@@ -1,12 +1,19 @@
 export default class Questions {
     constructor() {
-        this.qaList = [
-            { question: "Assign new Dj? ", answer: "simply click on edit key and you will be able to assign new Dj" },
-            { question: "save my changes?", answer: "click on the Apply Button" },
-            { question: "shortcut to apply changes? ", answer: "Yes, Click left shift +  enter." },
-            { question: "shortcut to search? ", answer: "Yes, Click left shift + F" },
-            { question: "delete a assigned DJ? ", answer: "Yes, Click on the delete button." },
-        ];
+
+        this.qaList = [];
+
+        document.addEventListener("DOMContentLoaded", async() => {
+            try {
+                const response = await fetch('/api/reportQuestions');
+                const questions = await response.json();
+                questions.forEach(ques => {
+                    this.qaList.push({ question: ques.ques, answer: ques.ans });
+                });
+            } catch (error) {
+                console.error("Error fetching questions:", error);
+            }
+        });
     }
 
     getAll() {

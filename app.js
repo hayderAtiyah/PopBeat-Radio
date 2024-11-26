@@ -46,10 +46,43 @@ const availableDjs = new mongoose.Schema({
     collection: 'availableDjs'
 });
 
+const reportQues = new mongoose.Schema({
+    ques: String,
+    ans: String
+}, {
+    collection: 'reportPageQuestions'
+});
+
+
 //Done by Hayder Atiyah
 const Report = mongoose.connection.useDb('reports').model('Report', reportSchema);
 const AssignedDJ = mongoose.connection.useDb('assignedDj').model('AssignedDJ', assignedDjSchema);
 const AvailableDjs = mongoose.connection.useDb('availableDjs').model('AvailableDjs', availableDjs);
+const ReportQues = mongoose.connection.useDb('reportPageQuestions').model('reportPageQuestions', reportQues);
+
+
+
+
+async function fetchQuestion() {
+    try {
+        const data = await ReportQues.find();
+        return data;
+    } catch (error) {
+        console.error("Error fetching questions:", error);
+        return [];
+    }
+}
+app.get('/api/reportQuestions', async(req, res) => {
+    try {
+        const data = await fetchQuestion();
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching questions", error);
+        res.status(500).json({
+            error: "Failed to fetch questions"
+        });
+    }
+});
 
 
 
@@ -62,7 +95,6 @@ async function fetchReports() {
         return [];
     }
 }
-
 
 //Done by Hayder Atiyah
 async function fetchAssigned() {
