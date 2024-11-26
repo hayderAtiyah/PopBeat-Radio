@@ -1,3 +1,7 @@
+/**
+ * This script belong to the manager page only
+ */
+
 import Questions from './questions.js';
 let reportCounter = 0;
 let assignDJCounter = 0;

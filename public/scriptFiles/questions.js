@@ -1,3 +1,6 @@
+/**
+ * This script belong to the manager page only
+ */
 export default class Questions {
     constructor() {
 
