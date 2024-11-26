@@ -46,6 +46,31 @@
             <% }) %>
     </table>
 
+    <div id="assignDJ">
+        <h1 style="
+            text-align: center;
+            color: rgb(221, 84, 221);
+            border: 1px solid rgb(184, 55, 189);
+            background-color: aliceblue;
+          ">
+            Assign DJ
+        </h1>
+        <input type="date" id="calendar" name="date" />
+        <br />
+        <table id="assignTable" class="tableStyle">
+            <% assignedDj.forEach(assign => { %>
+                <tr>
+                    <td>
+                        <%= assign.djName %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+
+
+
+
+
 
 
 

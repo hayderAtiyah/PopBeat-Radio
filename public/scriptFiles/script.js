@@ -79,34 +79,35 @@ document.getElementById("details-button").addEventListener("click", () => {
     /**
      * method to dynamically assign Dj to a song with a date. 
      */
-    function generateAssignDJ(DjName, song, date) {
-        let tr = document.createElement("tr");
-        let td = document.createElement("td");
-        td.textContent = `${DjName} assigned to ${song} on ${date}`;
-        let span = document.createElement("span");
-        let deleteBtn = document.createElement("button");
-        deleteBtn.id = "deleteBtn";
-        deleteBtn.textContent = "DELETE";
-    
-        deleteBtn.addEventListener("click", function() {
-            tr.remove();
-            const savedAssignments = JSON.parse(localStorage.getItem("DjsAssigned")) || [];
-            const updatedAssignments = savedAssignments.filter(
-                dj => !(dj.name === DjName && dj.song === song && dj.date === date)
-            );
-            DjsAssigned = updatedAssignments;
-            localStorage.setItem("DjsAssigned", JSON.stringify(DjsAssigned));
-        });
-    
-        span.appendChild(deleteBtn);
-        td.appendChild(span);
-        tr.appendChild(td);
-        assignDJArr.push(tr);
-        log(assignDJArr);
-        assignDJCounter++;
-        document.getElementById("assignTable").appendChild(tr);
-    }
-    
+function generateAssignDJ(DjName, song, date) {
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+    td.textContent = `${DjName} assigned to ${song} on ${date}`;
+
+    let span = document.createElement("span");
+    let deleteBtn = document.createElement("button");
+    deleteBtn.id = "deleteBtn";
+    deleteBtn.textContent = "DELETE";
+
+    deleteBtn.addEventListener("click", function() {
+        tr.remove();
+        const savedAssignments = JSON.parse(localStorage.getItem("DjsAssigned")) || [];
+        const updatedAssignments = savedAssignments.filter(
+            dj => !(dj.name === DjName && dj.song === song && dj.date === date)
+        );
+        DjsAssigned = updatedAssignments;
+        localStorage.setItem("DjsAssigned", JSON.stringify(DjsAssigned));
+    });
+
+    span.appendChild(deleteBtn);
+    td.appendChild(span);
+    tr.appendChild(td);
+    assignDJArr.push(tr);
+    log(assignDJArr);
+    assignDJCounter++;
+    document.getElementById("assignTable").appendChild(tr);
+}
+
 
 let keysPressed = {};
 /**
@@ -174,7 +175,7 @@ function assignDjEdit() {
                         songError.textContent = "Please enter a song name.";
                         return;
                     } else {
-                        songError.textContent = ""; 
+                        songError.textContent = "";
                     }
 
                     songAssignByDjFelid.style.display = "none";
@@ -184,9 +185,9 @@ function assignDjEdit() {
                         datePicked = event.target.value;
 
                         let today = new Date();
-                        let todayDate = today.getFullYear() + "-" + 
-                                        String(today.getMonth() + 1).padStart(2, "0") + "-" + 
-                                        String(today.getDate()).padStart(2, "0");
+                        let todayDate = today.getFullYear() + "-" +
+                            String(today.getMonth() + 1).padStart(2, "0") + "-" +
+                            String(today.getDate()).padStart(2, "0");
 
                         // Validate date input
                         if (datePicked === "" || datePicked < todayDate) {
@@ -275,7 +276,7 @@ questionButton.addEventListener("click", () => {
         checkQuestionClicked = false;
     } else {
         questionList.style.display = "block";
-        
+
         if (questionList.children.length === 0) {
             questionsInstance.getAll().forEach(qa => {
                 const questionCard = document.createElement("div");
