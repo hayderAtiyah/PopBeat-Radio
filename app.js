@@ -46,6 +46,7 @@ const availableDjs = new mongoose.Schema({
     collection: 'availableDjs'
 });
 
+//Done by Hayder Atiyah
 const reportQues = new mongoose.Schema({
     ques: String,
     ans: String
@@ -62,7 +63,7 @@ const ReportQues = mongoose.connection.useDb('reportPageQuestions').model('repor
 
 
 
-
+//Done by Hayder Atiyah
 async function fetchQuestion() {
     try {
         const data = await ReportQues.find();
@@ -72,6 +73,7 @@ async function fetchQuestion() {
         return [];
     }
 }
+//Done by Hayder Atiyah
 app.get('/api/reportQuestions', async(req, res) => {
     try {
         const data = await fetchQuestion();
@@ -159,7 +161,7 @@ app.get('/manager', async(req, res) => {
         const availableDjs = await fetchAvailableDjs();
 
         res.render('manager', {
-            managerTitleName: "hss",
+            managerTitleName: "manager",
             taylorPicSrc: "/photos/taylorWallpaper.jpg",
             mangamentTitle: "PopBeat Radio Management",
             reports: reports,
@@ -178,8 +180,6 @@ app.post('/api/deletedApplied', async(req, res) => {
         const {
             deleted
         } = req.body;
-
-
         for (const item of deleted) {
             await AssignedDJ.deleteOne({
                 djName: item.djName,
@@ -201,13 +201,9 @@ app.post('/api/addedApplied', async(req, res) => {
         const {
             added
         } = req.body;
-
-
         console.log(added)
-
         for (const item of added) {
             const newData = new AssignedDJ({
-
                 djName: item.djName,
                 dateOfAssign: item.dateOfAssign
             });
