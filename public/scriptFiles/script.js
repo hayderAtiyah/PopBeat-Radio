@@ -12,6 +12,7 @@ function assignDj(name, song, date) {
     this.date = date;
 };
 let editBox = document.getElementById("editBox");
+editBox.style.block = "none";
 let editRadioGroup = document.getElementById("radio-group");
 let songAssignByDjFelid = document.getElementById("song");
 let addSongButton = document.getElementById("addSongButton");
@@ -93,7 +94,7 @@ function generateAssignDJ(DjName, song, date) {
     deleteBtn.id = "deleteBtn";
     deleteBtn.textContent = "DELETE";
 
-    deleteBtn.addEventListener("click", function () {
+    deleteBtn.addEventListener("click", function() {
         tr.remove();
         tempDeleted.push({
             djName: DjName,
@@ -115,52 +116,6 @@ function generateAssignDJ(DjName, song, date) {
 }
 
 
-document.getElementById("applyKey").addEventListener("click", () => {
-    var check = false;
-    fetch('/api/deleteApplied', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                deleted: tempDeleted
-            })
-        })
-        .then(res => {
-            if (res.ok) {
-                console.log("Delete array sent");
-                check = true;
-                tempDeleted = [];
-            } else {
-                console.log("Could not send delete array");
-            }
-        })
-        .catch(error => {
-            console.log("Error applying the changes:", error);
-        });
-
-    if (check == true) {
-        alert("Changes applied.");
-    } else {
-        alert("no updates happens.");
-    }
-
-});
-
-
-
-document.addEventListener("DOMContentLoaded", async () => {
-    try {
-        const response = await fetch('/api/assignedDjs');
-        const assignedDjs = await response.json();
-
-        assignedDjs.forEach(dj => {
-            generateAssignDJ(dj.djName, dj.songName, dj.dateOfAssign);
-        });
-    } catch (error) {
-        console.error("Error fetching assigned DJs:", error);
-    }
-});
 
 
 
@@ -202,6 +157,7 @@ function restEditUI() {
     editRadioGroup.querySelectorAll("input").forEach(input => input.checked = false);
 
 }
+let tempAdded = [];
 
 /**
  * method to assign new Dj to a song and date from the user.
@@ -243,27 +199,31 @@ function assignDjEdit() {
                         let todayDate = today.getFullYear() + "-" +
                             String(today.getMonth() + 1).padStart(2, "0") + "-" +
                             String(today.getDate()).padStart(2, "0");
-
                         // Validate date input
                         if (datePicked === "" || datePicked < todayDate) {
                             dateError.textContent = "Please select a valid future date.";
                         } else {
                             dateError.textContent = ""; // Clear any existing error
-
                             // Only proceed when both fields are valid
                             let assignedDJ_to_Date = new assignDj(
                                 DjSelected.nextElementSibling.textContent,
                                 songAssignByDjFelid.value,
                                 datePicked
                             );
-
                             DjsAssigned.push(assignedDJ_to_Date);
+
                             generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
+
+                            tempAdded.push({
+                                djName: String(DjSelected.nextElementSibling.textContent),
+                                songName: String(songAssignByDjFelid.value),
+                                dateOfAssign: String(datePicked)
+                            });
+                            //console.log(tempAdded)
 
                             addSongButton.style.display = "none";
                             editCalander.style.display = "none";
                             addDiv.style.display = "block";
-
                             DjSelected = null;
                             datePicked = null;
                         }
@@ -273,6 +233,8 @@ function assignDjEdit() {
         });
     });
 }
+
+
 
 function createErrorMsg(id, element) {
     let errorMsg = document.createElement("span");
@@ -288,7 +250,7 @@ function createErrorMsg(id, element) {
 
 
 
-/*
+
 document.getElementById("yesBtnId").addEventListener("click", () => {
     restEditUI();
     addDiv.style.display = "none";
@@ -303,11 +265,11 @@ document.getElementById("yesBtnId").addEventListener("click", () => {
 
 
 
-
 document.getElementById("noBtnId").addEventListener("click", () => {
     restEditUI();
     assignDjEdit();
 });
+
 
 
 
@@ -321,6 +283,80 @@ function loadExistingAssignments() {
     }
 }
 
+
+document.getElementById("applyKey").addEventListener("click", () => {
+    var check = false;
+    fetch('/api/deletedApplied', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                deleted: tempDeleted
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Delete array sent");
+                check = true;
+                tempDeleted = [];
+            } else {
+                console.log("Could not send delete array");
+            }
+        })
+        .catch(error => {
+            console.log("Error applying the changes:", error);
+        });
+
+
+    fetch('/api/addedApplied', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                added: tempAdded
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("added array sent");
+                check = true;
+                tempAdded = [];
+            } else {
+                console.log("Could not send added array");
+            }
+        })
+        .catch(error => {
+            console.log("Error applying the changes:", error);
+        });
+
+    if (check == true) {
+        alert("Changes applied.");
+    } else {
+        alert("no updates happens.");
+    }
+
+
+});
+
+
+
+document.addEventListener("DOMContentLoaded", async() => {
+    try {
+        const response = await fetch('/api/assignedDjs');
+        const assignedDjs = await response.json();
+
+        assignedDjs.forEach(dj => {
+            generateAssignDJ(dj.djName, dj.songName, dj.dateOfAssign);
+        });
+    } catch (error) {
+        console.error("Error fetching assigned DJs:", error);
+    }
+});
+
+
+/*
 let checkQuestionClicked = false;
 const questionsInstance = new Questions();
 
@@ -360,11 +396,11 @@ questionButton.addEventListener("click", () => {
         checkQuestionClicked = true;
     }
 });
-
 */
 
+
 //loadExistingAssignments();
-//restEditUI();
+restEditUI();
 
 //generateReportTable(reportCounter);
 //shortcut to search.
@@ -372,4 +408,4 @@ shortCutTrigger("shift", "f", "searchBox");
 //shortcut to apply.
 shortCutTrigger("shift", "enter", "applyKey");
 
-//assignDjEdit();
+assignDjEdit();

@@ -68,7 +68,7 @@ async function fetchAssigned() {
     }
 }
 
-app.get('/api/assignedDjs', async (req, res) => {
+app.get('/api/assignedDjs', async(req, res) => {
     try {
         const data = await fetchAssigned();
         res.json(data);
@@ -83,7 +83,7 @@ app.get('/api/assignedDjs', async (req, res) => {
 
 
 //Done by Hayder
-app.get('/manager', async (req, res) => {
+app.get('/manager', async(req, res) => {
     const reports = await fetchReports();
     const assignedDj = await fetchAssigned();
     res.render('manager', {
@@ -95,11 +95,12 @@ app.get('/manager', async (req, res) => {
     });
 });
 
-app.post('/api/deleteApplied', async (req, res) => {
+app.post('/api/deletedApplied', async(req, res) => {
     try {
         const {
             deleted
         } = req.body;
+
 
         for (const item of deleted) {
             await AssignedDJ.deleteOne({
@@ -115,6 +116,39 @@ app.post('/api/deleteApplied', async (req, res) => {
         console.error("Error applying changes:", error);
     }
 });
+
+
+app.post('/api/addedApplied', async(req, res) => {
+    try {
+        const {
+            added
+        } = req.body;
+
+        console.log(added)
+        for (const item of added) {
+            const newData = new AssignedDJ({
+
+                djName: item.djName,
+                songName: item.songName,
+                dateOfAssign: item.dateOfAssign
+            });
+
+
+            await newData.save();
+            console.log("Saved Data:", newData);
+        }
+
+        res.status(200).json({
+            message: "Changes applied successfully."
+        });
+    } catch (error) {
+        console.error("Error applying changes:", error);
+    }
+});
+
+
+
+
 
 //Done by Hayder
 app.listen(3500, () => {

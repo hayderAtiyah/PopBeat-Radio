@@ -26,24 +26,24 @@
             <td style="text-align: center">DJ Played</td>
         </tr>
         <% reports.forEach(report => { %>
-        <tr>
+            <tr>
 
-            <td style="text-align: center">
-                <%= report.songName %> was assigned by
-                <%= report.producerName %> on
-                <%= report.dateOfAssign %>
-            </td>
-            <td style="text-align: center">
-                <%= report.djName %>
-                <% if (report.playedOrNot) { %>
-                played
-                <% } else { %>
-                did not play
-                <% } %>
-                <%= report.songName %>
-            </td>
-        </tr>
-        <% }) %>
+                <td style="text-align: center">
+                    <%= report.songName %> was assigned by
+                        <%= report.producerName %> on
+                            <%= report.dateOfAssign %>
+                </td>
+                <td style="text-align: center">
+                    <%= report.djName %>
+                        <% if (report.playedOrNot) { %>
+                            played
+                            <% } else { %>
+                                did not play
+                                <% } %>
+                                    <%= report.songName %>
+                </td>
+            </tr>
+            <% }) %>
     </table>
 
     <div id="assignDJ">
@@ -60,13 +60,48 @@
 
         <table id="assignTable" class="tableStyle">
         </table>
+        <div id="editBox">
+            <div id="addDiv">
+                <p>Added! Do you want another?</p>
+                <button id="noBtnId">NO</button>
+                <button id="yesBtnId">YES</button>
+            </div>
+            <form id="editFormID">
+                <!-- <label for ="name"> DJ name:</label>
+                  <input type="text" id = name name="Dj name" required> -->
+                <fieldset id="radio-group">
+                    <legend>Available Djs to assign: </legend>
+                    <input type="radio" name="radio-group" id="radio-1">
+                    <label for="radio-1">Alex</label>
+                    <input type="radio" name="radio-group" id="radio-2">
+                    <label for="radio-2">Emma</label>
+                    <input type="radio" name="radio-group" id="radio-3">
+                    <label for="radio-3">Chris</label>
+                </fieldset>
 
+                <br>
+
+                <input type="text" id="song" name="song name" placeholder="Write your song here" required>
+                <button id="addSongButton">
+                  <span class="text">Add</span>
+                </button>
+
+                <br>
+
+                <input type="date" id="editCalander" name="date" />
+
+
+
+            </form>
+        </div>
         <button id="applyKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
             Apply
         </button>
         <button id="editBtnKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
             Edit
         </button>
+
+
 
 
         <script type="module" src="/scriptFiles/script.js"></script>
