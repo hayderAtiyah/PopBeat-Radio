@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,17 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styleFiles/manager.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-
     <title>
-        <%=managerTitleName%>
+        <%= managerTitleName %>
     </title>
 </head>
 
 <body>
-    <img id="wallpaper" src="<%=taylorPicSrc%>" alt="taylorPic" />
+    <img id="wallpaper" src="<%= taylorPicSrc %>" alt="taylorPic" />
     <h1 class="titleName">
-        <%=mangamentTitle%>
+        <%= mangamentTitle %>
     </h1>
+
+    <table id="reportTable" class="tableStyle" style="float: left; margin-left: 200px">
+        <tr>
+            <th id="reportTitleID" colspan="2">Reports</th>
+        </tr>
+        <tr>
+            <td style="text-align: center">Producer Assigned</td>
+            <td style="text-align: center">DJ Played</td>
+        </tr>
+        <% reports.forEach(report => { %>
+            <tr>
+                <!-- First part of the row -->
+                <td style="text-align: center">
+                    <%= report.songName %> was assigned by
+                        <%= report.producerName %> on
+                            <%= report.dateOfAssign %>
+                </td>
+                <td style="text-align: center">
+                    <%= report.djName %>
+                        <% if (report.playedOrNot) { %>
+                            played
+                            <% } else { %>
+                                did not play
+                                <% } %>
+                                    <%= report.songName %>
+                </td>
+            </tr>
+            <% }) %>
+    </table>
+
+
 
 
 </body>
