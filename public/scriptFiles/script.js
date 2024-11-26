@@ -20,6 +20,8 @@ let editCalander = document.getElementById("editCalander");
 let addDiv = document.getElementById("addDiv");
 let DjSelected = null;
 let datePicked = null;
+document.getElementById("djWithDate").style.display = "none"
+document.getElementById("djTable").style.display = "none"
 
 /**
  * method to display the report whenever it gets one.
@@ -383,8 +385,85 @@ async function loadExistingAssignmentsByDate(date) {
     } catch (error) {
         console.error("Error fetching assigned DJs:", error);
     }
+}
+
+
+document.getElementById("reportViewDetialsButton").addEventListener('click', async(event) => {
+        event.preventDefault();
+        var checkInput = false;
+        const inputSerachDj = document.getElementById("searchBox").value;
+        if (inputSerachDj == "") {
+
+            alert("serach bar is empty")
+            return;
+        } else {
+            document.getElementById("djWithDate").style.display = "block"
+            document.getElementById("djTable").style.display = "block"
+            document.getElementById("djTable").innerHTML = "";
+            let table = generateAssignDJByNameSetUp();
+            const res = await fetch('/api/assignedDjs');
+            const assignedDj = await res.json();
+
+            assignedDj.forEach(dj => {
+                if (dj.djName.toLowerCase() === inputSerachDj.toLowerCase()) {
+                    checkInput = true;
+                    table.appendChild(generateAssignDJByName(dj.djName, dj.dateOfAssign));
+                }
+            })
+            document.getElementById("djWithDate").appendChild(table)
+            if (!checkInput) {
+                alert("no Dj with that name that been assigned or existed")
+                document.getElementById("djWithDate").style.display = "none"
+                document.getElementById("djTable").style.display = "none"
+            }
+            console.log("its searching for ", inputSerachDj)
+        }
+    }
+
+);
+
+
+function generateAssignDJByNameSetUp() {
+    let tableCon = document.getElementById("djTable");
+    tableCon.innerHTML = "";
+
+    let thead = document.createElement("thead");
+    let tr1 = document.createElement("tr");
+    let th1 = document.createElement("th");
+    let th2 = document.createElement("th");
+    th1.textContent = "DJ Name";
+    th2.textContent = "Date Assigned"
+    tr1.appendChild(th1);
+    tr1.appendChild(th2)
+    thead.appendChild(tr1)
+    tableCon.appendChild(thead)
+    return tableCon;
+
+
 
 }
+
+function generateAssignDJByName(djName, Date) {
+    let tr = document.createElement("tr")
+    let td1 = document.createElement("td")
+    let td2 = document.createElement("td")
+    td1.textContent = djName;
+    td2.textContent = Date;
+    tr.appendChild(td1)
+    tr.appendChild(td2)
+    return tr;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const clearButton = document.querySelector('.ui-datepicker-clear');
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            console.log('Clear button clicked!');
+
+        });
+    }
+});
+
 
 /*
 let checkQuestionClicked = false;

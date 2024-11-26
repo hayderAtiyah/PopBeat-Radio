@@ -719,7 +719,50 @@ label[for="song"] {
     }
 }
 
-#assignTable tr {
-    display: table;
+#djWithDate {
+    display: none;
+    margin: 30px auto;
+    padding: 20px;
+    width: 90%;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: 3px solid #ff69b4;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.5);
+    font-family: 'Poppins', sans-serif;
+    color: #4a4a4a;
+}
+
+#djTable {
     width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+#djTable thead tr {
+    background: linear-gradient(135deg, #ff6f91, #ff85a2);
+    color: #fff;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+#djTable th,
+#djTable td {
+    padding: 15px;
+    border: 2px solid #ffd1dc;
+    text-align: left;
+}
+
+#djTable tr:nth-child(even) {
+    background-color: #ffe6ea;
+}
+
+#djTable tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+#djTable tr:hover {
+    background: linear-gradient(135deg, #ff6f91, #ff85a2);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
