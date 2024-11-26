@@ -345,9 +345,7 @@ document.getElementById("applyKey").addEventListener("click", () => {
 
 });
 
-
-
-document.addEventListener("DOMContentLoaded", async() => {
+async function loadAssignDj() {
     try {
         const response = await fetch('/api/assignedDjs');
         const assignedDjs = await response.json();
@@ -358,18 +356,27 @@ document.addEventListener("DOMContentLoaded", async() => {
     } catch (error) {
         console.error("Error fetching assigned DJs:", error);
     }
+
+}
+
+document.addEventListener("DOMContentLoaded", async() => {
+    await loadAssignDj();
 });
 
 document.getElementById("calendar").addEventListener('change', async(event) => {
     try {
         const date = event.target.value;
-        console.log(date);
-        loadExistingAssignmentsByDate(date);
-
+        if (date === "") {
+            await loadAssignDj();
+        } else {
+            console.log(date);
+            loadExistingAssignmentsByDate(date);
+        }
     } catch (error) {
         console.error("Error loading assigned DJs:", error);
     }
 });
+
 
 async function loadExistingAssignmentsByDate(date) {
     try {
@@ -454,15 +461,13 @@ function generateAssignDJByName(djName, Date) {
     return tr;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const clearButton = document.querySelector('.ui-datepicker-clear');
-    if (clearButton) {
-        clearButton.addEventListener('click', () => {
-            console.log('Clear button clicked!');
+document.getElementById("reportViewDetialsButtonBack").addEventListener('click', (event) => {
+    event.preventDefault()
+    document.getElementById("djWithDate").style.display = "none"
+    document.getElementById("djTable").style.display = "none"
+    document.getElementById("searchBox").value = '';
+})
 
-        });
-    }
-});
 
 
 /*

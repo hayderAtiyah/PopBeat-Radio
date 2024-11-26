@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+//Done by Hayder Atiyah
 const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views/pages');
 
-//Done by Hayder
+//Done by Hayder Atiyah
 mongoose.connect('mongodb+srv://swe432:pineapple@project4.qwvwv.mongodb.net/?retryWrites=true&w=majority&appName=project4', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -18,7 +18,7 @@ mongoose.connect('mongodb+srv://swe432:pineapple@project4.qwvwv.mongodb.net/?ret
 });
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 const reportSchema = new mongoose.Schema({
     dateOfAssign: String,
     producerName: String,
@@ -31,7 +31,7 @@ const reportSchema = new mongoose.Schema({
 });
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 const assignedDjSchema = new mongoose.Schema({
     djName: String,
 
@@ -39,21 +39,21 @@ const assignedDjSchema = new mongoose.Schema({
 }, {
     collection: 'assignedDj'
 });
-
+//Done by Hayder Atiyah
 const availableDjs = new mongoose.Schema({
     djName: String
 }, {
     collection: 'availableDjs'
 });
 
-//Done by Hayder
+//Done by Hayder Atiyah
 const Report = mongoose.connection.useDb('reports').model('Report', reportSchema);
 const AssignedDJ = mongoose.connection.useDb('assignedDj').model('AssignedDJ', assignedDjSchema);
 const AvailableDjs = mongoose.connection.useDb('availableDjs').model('AvailableDjs', availableDjs);
 
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 async function fetchReports() {
     try {
         return await Report.find();
@@ -64,7 +64,7 @@ async function fetchReports() {
 }
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 async function fetchAssigned() {
     try {
         const data = await AssignedDJ.find();
@@ -76,7 +76,7 @@ async function fetchAssigned() {
     }
 }
 
-
+//Done by Hayder Atiyah
 app.get('/api/assignedDjs', async(req, res) => {
     try {
         const data = await fetchAssigned();
@@ -91,7 +91,7 @@ app.get('/api/assignedDjs', async(req, res) => {
 
 
 
-
+//Done by Hayder Atiyah
 async function fetchAvailableDjs() {
     try {
         const data = await AvailableDjs.find();
@@ -103,7 +103,7 @@ async function fetchAvailableDjs() {
     }
 }
 
-//done by hayder
+//Done by Hayder Atiyah
 app.get('/api/availableDjs', async(req, res) => {
     try {
         const data = await fetchAvailableDjs();
@@ -140,7 +140,7 @@ app.get('/manager', async(req, res) => {
     }
 });
 
-
+//Done by Hayder Atiyah
 app.post('/api/deletedApplied', async(req, res) => {
     try {
         const {
@@ -163,7 +163,7 @@ app.post('/api/deletedApplied', async(req, res) => {
     }
 });
 
-
+//Done by Hayder Atiyah
 app.post('/api/addedApplied', async(req, res) => {
     try {
         const {
@@ -195,7 +195,7 @@ app.post('/api/addedApplied', async(req, res) => {
 
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 app.listen(3500, () => {
     console.log("Server running on port 3500");
 });
