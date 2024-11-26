@@ -8,13 +8,13 @@ let DjsAssigned = [];
 
 function assignDj(name, song, date) {
     this.name = name;
-    this.song = song;
+    //this.song = song;
     this.date = date;
 };
 let editBox = document.getElementById("editBox");
 editBox.style.block = "none";
 let editRadioGroup = document.getElementById("radio-group");
-let songAssignByDjFelid = document.getElementById("song");
+//let songAssignByDjFelid = document.getElementById("song");
 let addSongButton = document.getElementById("addSongButton");
 let editCalander = document.getElementById("editCalander");
 let addDiv = document.getElementById("addDiv");
@@ -84,10 +84,10 @@ let tempDeleted = [];
 /**
  * method to dynamically assign Dj to a song with a date. 
  */
-function generateAssignDJ(DjName, song, date) {
+function generateAssignDJ(djName, date) {
     let tr = document.createElement("tr");
     let td = document.createElement("td");
-    td.textContent = `${DjName} assigned to ${song} on ${date}`;
+    td.textContent = `${djName} assigned on ${date}`;
 
     let span = document.createElement("span");
     let deleteBtn = document.createElement("button");
@@ -97,8 +97,7 @@ function generateAssignDJ(DjName, song, date) {
     deleteBtn.addEventListener("click", function() {
         tr.remove();
         tempDeleted.push({
-            djName: DjName,
-            djSong: song,
+            djName: djName,
             djDate: date
         });
     });
@@ -109,13 +108,44 @@ function generateAssignDJ(DjName, song, date) {
     assignDJArr.push(tr);
     log(assignDJArr);
     assignDJCounter++;
-    if (document.getElementById("assignTable") == true) {
-        console.log("found it");
-    }
     document.getElementById("assignTable").appendChild(tr);
 }
 
 
+
+async function availableDjsGenerate() {
+    let radioGroup = document.getElementById('radio-group');
+    radioGroup.innerHTML = ''; // Clear existing content
+
+    let legend = document.createElement('legend');
+    legend.textContent = "Available Djs to assign:";
+    radioGroup.appendChild(legend);
+
+    try {
+        const response = await fetch('/api/availableDjs');
+        const availableDjs = await response.json();
+
+        availableDjs.forEach((dj, index) => {
+            // Create the radio input
+            let radioInput = document.createElement('input');
+            radioInput.type = 'radio';
+            radioInput.name = 'radio-group';
+            radioInput.id = `radio-${index + 1}`;
+            radioInput.value = dj.name;
+
+            // Create the label
+            let label = document.createElement('label');
+            label.htmlFor = `radio-${index + 1}`;
+            label.textContent = dj.name;
+
+            // Append elements to the fieldset
+            radioGroup.appendChild(radioInput);
+            radioGroup.appendChild(label);
+        });
+    } catch (error) {
+        console.error("Error fetching Available DJs:", error);
+    }
+}
 
 
 
@@ -146,13 +176,13 @@ function restEditUI() {
     // Hide all elements
     editBox.style.display = "none";
     editRadioGroup.style.display = "none";
-    songAssignByDjFelid.style.display = "none";
-    addSongButton.style.display = "none";
+    //songAssignByDjFelid.style.display = "none";
+    //addSongButton.style.display = "none";
     editCalander.style.display = "none";
     addDiv.style.display = "none";
 
     // Clear all input values and selections
-    songAssignByDjFelid.value = "";
+    // songAssignByDjFelid.value = "";
     editCalander.value = "";
     editRadioGroup.querySelectorAll("input").forEach(input => input.checked = false);
 
@@ -166,7 +196,6 @@ function assignDjEdit() {
     document.getElementById("editBtnKey").addEventListener("click", () => {
         editBox.style.display = "block";
         editRadioGroup.style.display = "block";
-        let songError = createErrorMsg("songError", songAssignByDjFelid);
         let dateError = createErrorMsg("dateError", editCalander);
 
         editRadioGroup.addEventListener("change", (event) => {
@@ -175,59 +204,37 @@ function assignDjEdit() {
 
             if (DjSelected) {
                 editRadioGroup.style.display = "none";
-                songAssignByDjFelid.style.display = "block";
-                addSongButton.style.display = "block";
+                editCalander.style.display = "block";
 
-                addSongButton.addEventListener("click", (event) => {
-                    event.preventDefault();
+                editCalander.addEventListener("change", (event) => {
+                    datePicked = event.target.value;
 
-                    // Validate song input
-                    if (songAssignByDjFelid.value === "") {
-                        songError.textContent = "Please enter a song name.";
-                        return;
+                    let today = new Date();
+                    let todayDate = today.getFullYear() + "-" +
+                        String(today.getMonth() + 1).padStart(2, "0") + "-" +
+                        String(today.getDate()).padStart(2, "0");
+
+
+                    if (datePicked === "" || datePicked < todayDate) {
+                        dateError.textContent = "Please select a valid future date.";
                     } else {
-                        songError.textContent = "";
+                        dateError.textContent = "";
+
+                        let assignedDJ_to_Date = new assignDj(
+                            DjSelected.nextElementSibling.textContent,
+                            datePicked
+                        );
+                        DjsAssigned.push(assignedDJ_to_Date);
+                        generateAssignDJ(DjSelected.nextElementSibling.textContent, datePicked);
+                        tempAdded.push({
+                            djName: String(DjSelected.nextElementSibling.textContent),
+                            dateOfAssign: String(datePicked)
+                        });
+                        editCalander.style.display = "none";
+                        addDiv.style.display = "block";
+                        DjSelected = null;
+                        datePicked = null;
                     }
-
-                    songAssignByDjFelid.style.display = "none";
-                    editCalander.style.display = "block";
-
-                    editCalander.addEventListener("change", (event) => {
-                        datePicked = event.target.value;
-
-                        let today = new Date();
-                        let todayDate = today.getFullYear() + "-" +
-                            String(today.getMonth() + 1).padStart(2, "0") + "-" +
-                            String(today.getDate()).padStart(2, "0");
-                        // Validate date input
-                        if (datePicked === "" || datePicked < todayDate) {
-                            dateError.textContent = "Please select a valid future date.";
-                        } else {
-                            dateError.textContent = ""; // Clear any existing error
-                            // Only proceed when both fields are valid
-                            let assignedDJ_to_Date = new assignDj(
-                                DjSelected.nextElementSibling.textContent,
-                                songAssignByDjFelid.value,
-                                datePicked
-                            );
-                            DjsAssigned.push(assignedDJ_to_Date);
-
-                            generateAssignDJ(DjSelected.nextElementSibling.textContent, songAssignByDjFelid.value, datePicked);
-
-                            tempAdded.push({
-                                djName: String(DjSelected.nextElementSibling.textContent),
-                                songName: String(songAssignByDjFelid.value),
-                                dateOfAssign: String(datePicked)
-                            });
-                            //console.log(tempAdded)
-
-                            addSongButton.style.display = "none";
-                            editCalander.style.display = "none";
-                            addDiv.style.display = "block";
-                            DjSelected = null;
-                            datePicked = null;
-                        }
-                    });
                 });
             }
         });
@@ -278,7 +285,7 @@ function loadExistingAssignments() {
     if (savedAssignments) {
         DjsAssigned = savedAssignments;
         DjsAssigned.forEach(dj => {
-            generateAssignDJ(dj.name, dj.song, dj.date);
+            generateAssignDJ(dj.name, dj.date);
         });
     }
 }
@@ -348,12 +355,14 @@ document.addEventListener("DOMContentLoaded", async() => {
         const assignedDjs = await response.json();
 
         assignedDjs.forEach(dj => {
-            generateAssignDJ(dj.djName, dj.songName, dj.dateOfAssign);
+            generateAssignDJ(dj.djName, dj.dateOfAssign);
         });
     } catch (error) {
         console.error("Error fetching assigned DJs:", error);
     }
 });
+
+
 
 
 /*

@@ -86,7 +86,8 @@ th {
 #reportView,
 #applyKey,
 #deleteBtn,
-#editBtnKey,#questionKey {
+#editBtnKey,
+#questionKey {
     background-color: #c091b6;
 }
 
@@ -94,7 +95,8 @@ th {
 #reportView:hover,
 #applyKey:hover,
 #deleteBtn:hover,
-#editBtnKey:hover,#questionKey:hover {
+#editBtnKey:hover,
+#questionKey:hover {
     background-color: #ffffff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: all 0.2s ease-in;
@@ -114,7 +116,8 @@ th {
 #reportView,
 #applyKey,
 #deleteBtn,
-#editBtnKey,#questionKey {
+#editBtnKey,
+#questionKey {
     float: right;
 }
 
@@ -671,4 +674,52 @@ label[for="song"] {
 
 .question-card.active:after {
     transform: rotate(45deg);
+}
+
+#assignTable {
+    display: block;
+    max-height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-collapse: collapse;
+    width: 100%;
+    background: linear-gradient(145deg, #ffe6f2, #ffccf2);
+}
+
+#assignTable::-webkit-scrollbar {
+    width: 14px;
+    /* Make the scrollbar wider for emphasis */
+}
+
+#assignTable::-webkit-scrollbar-track {
+    background: linear-gradient(145deg, #ffe6f9, #ffccf2);
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#assignTable::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #ff66cc, #ff33aa);
+    border-radius: 10px;
+    border: 2px solid #ffe6f9;
+    box-shadow: 0 0 10px rgba(255, 102, 204, 0.8), 0 0 5px rgba(255, 51, 170, 0.6);
+    animation: thumb-hover-glow 1.5s infinite alternate;
+}
+
+#assignTable::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(145deg, #ff99dd, #ff66cc);
+    box-shadow: 0 0 15px rgba(255, 153, 221, 0.9), 0 0 10px rgba(255, 102, 204, 0.8);
+}
+
+@keyframes thumb-hover-glow {
+    from {
+        box-shadow: 0 0 10px rgba(255, 102, 204, 0.8), 0 0 5px rgba(255, 51, 170, 0.6);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 102, 204, 0.8), 0 0 10px rgba(255, 51, 170, 0.6);
+    }
+}
+
+#assignTable tr {
+    display: table;
+    width: 100%;
 }

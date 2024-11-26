@@ -34,16 +34,23 @@ const reportSchema = new mongoose.Schema({
 //Done by Hayder
 const assignedDjSchema = new mongoose.Schema({
     djName: String,
-    songName: String,
+
     dateOfAssign: String
 }, {
     collection: 'assignedDj'
 });
 
+const availableDjs = new mongoose.Schema({
+    djName: String
+}, {
+    collection: 'availableDjs'
+});
 
 //Done by Hayder
 const Report = mongoose.connection.useDb('reports').model('Report', reportSchema);
 const AssignedDJ = mongoose.connection.useDb('assignedDj').model('AssignedDJ', assignedDjSchema);
+const AvailableDjs = mongoose.connection.useDb('availableDjs').model('AvailableDjs', availableDjs);
+
 
 
 //Done by Hayder
@@ -61,12 +68,14 @@ async function fetchReports() {
 async function fetchAssigned() {
     try {
         const data = await AssignedDJ.find();
+        console.log(data);
         return data;
     } catch (error) {
         console.error("Error fetching assigned DJ:", error);
         return [];
     }
 }
+
 
 app.get('/api/assignedDjs', async(req, res) => {
     try {
@@ -82,18 +91,55 @@ app.get('/api/assignedDjs', async(req, res) => {
 
 
 
+
+async function fetchAvailableDjs() {
+    try {
+        const data = await AvailableDjs.find();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error("Error fetching available Djs:", error);
+        return [];
+    }
+}
+
+
+app.get('/api/availableDjs', async(req, res) => {
+    try {
+        const data = await fetchAvailableDjs();
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching Available Djs:", error);
+        res.status(500).json({
+            error: "Failed to fetch Available DJs"
+        });
+    }
+});
+
+
+
+
 //Done by Hayder
 app.get('/manager', async(req, res) => {
-    const reports = await fetchReports();
-    const assignedDj = await fetchAssigned();
-    res.render('manager', {
-        managerTitleName: "hss",
-        taylorPicSrc: "/photos/taylorWallpaper.jpg",
-        mangamentTitle: "PopBeat Radio Mangament",
-        reports: reports,
-        assignedDj: assignedDj
-    });
+    try {
+        const reports = await fetchReports();
+        const assignedDj = await fetchAssigned();
+        const availableDjs = await fetchAvailableDjs();
+
+        res.render('manager', {
+            managerTitleName: "hss",
+            taylorPicSrc: "/photos/taylorWallpaper.jpg",
+            mangamentTitle: "PopBeat Radio Management",
+            reports: reports,
+            assignedDj: assignedDj,
+            availableDjs: availableDjs,
+        });
+    } catch (error) {
+        console.error("Error loading manager page:", error);
+        res.status(500).send("Error loading manager page.");
+    }
 });
+
 
 app.post('/api/deletedApplied', async(req, res) => {
     try {
@@ -105,7 +151,7 @@ app.post('/api/deletedApplied', async(req, res) => {
         for (const item of deleted) {
             await AssignedDJ.deleteOne({
                 djName: item.djName,
-                djSong: item.songName,
+
                 djDate: item.dateOfAssign
             });
         }
@@ -124,12 +170,13 @@ app.post('/api/addedApplied', async(req, res) => {
             added
         } = req.body;
 
+
         console.log(added)
+
         for (const item of added) {
             const newData = new AssignedDJ({
 
                 djName: item.djName,
-                songName: item.songName,
                 dateOfAssign: item.dateOfAssign
             });
 
