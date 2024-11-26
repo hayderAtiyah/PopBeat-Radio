@@ -179,8 +179,6 @@ app.post('/api/addedApplied', async(req, res) => {
                 djName: item.djName,
                 dateOfAssign: item.dateOfAssign
             });
-
-
             await newData.save();
             console.log("Saved Data:", newData);
         }

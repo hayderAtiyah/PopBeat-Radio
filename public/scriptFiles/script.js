@@ -305,7 +305,7 @@ document.getElementById("applyKey").addEventListener("click", () => {
         .then(res => {
             if (res.ok) {
                 console.log("Delete array sent");
-                check = true;
+
                 tempDeleted = [];
             } else {
                 console.log("Could not send delete array");
@@ -328,7 +328,7 @@ document.getElementById("applyKey").addEventListener("click", () => {
         .then(res => {
             if (res.ok) {
                 console.log("added array sent");
-                check = true;
+
                 tempAdded = [];
             } else {
                 console.log("Could not send added array");
@@ -338,11 +338,7 @@ document.getElementById("applyKey").addEventListener("click", () => {
             console.log("Error applying the changes:", error);
         });
 
-    if (check == true) {
-        alert("Changes applied.");
-    } else {
-        alert("no updates happens.");
-    }
+    alert("Changes applied.");
 
 
 });
@@ -362,8 +358,33 @@ document.addEventListener("DOMContentLoaded", async() => {
     }
 });
 
+document.getElementById("calendar").addEventListener('change', async(event) => {
+    try {
+        const date = event.target.value;
+        console.log(date);
+        loadExistingAssignmentsByDate(date);
 
+    } catch (error) {
+        console.error("Error loading assigned DJs:", error);
+    }
+});
 
+async function loadExistingAssignmentsByDate(date) {
+    try {
+        const response = await fetch('/api/assignedDjs');
+        const assignedDjs = await response.json();
+        document.getElementById("assignTable").innerHTML = "";
+        assignedDjs.forEach(dj => {
+            if (dj.dateOfAssign === date) {
+                generateAssignDJ(dj.djName, dj.dateOfAssign);
+            }
+
+        });
+    } catch (error) {
+        console.error("Error fetching assigned DJs:", error);
+    }
+
+}
 
 /*
 let checkQuestionClicked = false;
