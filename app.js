@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 app.use(express.static('public'));
-
+app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views/pages');
 
@@ -26,7 +26,9 @@ const reportSchema = new mongoose.Schema({
     djName: String,
     playedOrNot: Boolean,
     details: String
-}, { collection: 'reports' });
+}, {
+    collection: 'reports'
+});
 
 
 //Done by Hayder
@@ -34,7 +36,9 @@ const assignedDjSchema = new mongoose.Schema({
     djName: String,
     songName: String,
     dateOfAssign: String
-}, { collection: 'assignedDj' });
+}, {
+    collection: 'assignedDj'
+});
 
 
 //Done by Hayder
@@ -64,20 +68,22 @@ async function fetchAssigned() {
     }
 }
 
-app.get('/api/assignedDjs', async(req, res) => {
+app.get('/api/assignedDjs', async (req, res) => {
     try {
         const data = await fetchAssigned();
-        res.json(data); // Send data to the client
+        res.json(data);
     } catch (error) {
         console.error("Error fetching assigned DJs:", error);
-        res.status(500).json({ error: "Failed to fetch assigned DJs" });
+        res.status(500).json({
+            error: "Failed to fetch assigned DJs"
+        });
     }
 });
 
 
 
 //Done by Hayder
-app.get('/manager', async(req, res) => {
+app.get('/manager', async (req, res) => {
     const reports = await fetchReports();
     const assignedDj = await fetchAssigned();
     res.render('manager', {
@@ -89,6 +95,26 @@ app.get('/manager', async(req, res) => {
     });
 });
 
+app.post('/api/deleteApplied', async (req, res) => {
+    try {
+        const {
+            deleted
+        } = req.body;
+
+        for (const item of deleted) {
+            await AssignedDJ.deleteOne({
+                djName: item.djName,
+                djSong: item.songName,
+                djDate: item.dateOfAssign
+            });
+        }
+        res.status(200).json({
+            message: "Changes applied successfully."
+        });
+    } catch (error) {
+        console.error("Error applying changes:", error);
+    }
+});
 
 //Done by Hayder
 app.listen(3500, () => {

@@ -79,7 +79,7 @@ document.getElementById("details-button").addEventListener("click", () => {
     })
 */
 
-
+let tempDeleted = [];
 /**
  * method to dynamically assign Dj to a song with a date. 
  */
@@ -93,14 +93,13 @@ function generateAssignDJ(DjName, song, date) {
     deleteBtn.id = "deleteBtn";
     deleteBtn.textContent = "DELETE";
 
-    deleteBtn.addEventListener("click", function() {
+    deleteBtn.addEventListener("click", function () {
         tr.remove();
-        const savedAssignments = JSON.parse(localStorage.getItem("DjsAssigned")) || [];
-        const updatedAssignments = savedAssignments.filter(
-            dj => !(dj.name === DjName && dj.song === song && dj.date === date)
-        );
-        DjsAssigned = updatedAssignments;
-        localStorage.setItem("DjsAssigned", JSON.stringify(DjsAssigned));
+        tempDeleted.push({
+            djName: DjName,
+            djSong: song,
+            djDate: date
+        });
     });
 
     span.appendChild(deleteBtn);
@@ -115,7 +114,42 @@ function generateAssignDJ(DjName, song, date) {
     document.getElementById("assignTable").appendChild(tr);
 }
 
-document.addEventListener("DOMContentLoaded", async() => {
+
+document.getElementById("applyKey").addEventListener("click", () => {
+    var check = false;
+    fetch('/api/deleteApplied', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                deleted: tempDeleted
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Delete array sent");
+                check = true;
+                tempDeleted = [];
+            } else {
+                console.log("Could not send delete array");
+            }
+        })
+        .catch(error => {
+            console.log("Error applying the changes:", error);
+        });
+
+    if (check == true) {
+        alert("Changes applied.");
+    } else {
+        alert("no updates happens.");
+    }
+
+});
+
+
+
+document.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch('/api/assignedDjs');
         const assignedDjs = await response.json();
@@ -250,6 +284,10 @@ function createErrorMsg(id, element) {
 }
 
 
+
+
+
+
 /*
 document.getElementById("yesBtnId").addEventListener("click", () => {
     restEditUI();
@@ -271,10 +309,7 @@ document.getElementById("noBtnId").addEventListener("click", () => {
     assignDjEdit();
 });
 
-document.getElementById("applyKey").addEventListener("click", () => {
-    localStorage.setItem("DjsAssigned", JSON.stringify(DjsAssigned));
-    alert("Changes applied. ");
-});
+
 
 function loadExistingAssignments() {
     const savedAssignments = JSON.parse(localStorage.getItem("DjsAssigned"));

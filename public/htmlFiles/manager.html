@@ -2,72 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styleFiles/manager.css" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styleFiles/manager.css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
-    <title>Mangaer Page</title>
+  <title>Mangaer Page</title>
 </head>
 
 <body>
-    <script>
-        function refreshPage() {
-            location.reload();
-        }
-    </script>
-    <img id="wallpaper" src="../photos/taylorWallpaper.jpg" alt="taylorPic" />
+  <script>
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
+  <img id="wallpaper" src="../photos/taylorWallpaper.jpg" alt="taylorPic" />
 
-    <h1 class="titleName">PopBeat Radio Mangament</h1>
+  <h1 class="titleName">PopBeat Radio Mangament</h1>
 
 
 
-    <ul style="float: left">
-        <li style="list-style: none">
-            <a href="#"><button onClick="alert('This will take you to Home. will be done in P4.')"
-            id="reportViewDetialsButton"
-            style="width: 200px; height: 50px"
-          >
-            Home page
-          </button></a
-        >
-      </li>
-      <li style="list-style: none">
-        <a href="#"
-          ><button onclick="refreshPage()"
-            id="reportViewDetialsButton"
-            style="width: 200px; height: 50px; margin-top: 20px"
-          >
-            Refresh Manager
-          </button></a
-        >
-      </li>
-      <li style="list-style: none">
-        <a href="#"
-          ><button onClick="alert('This will take you to DJ page. will be done in P4.')"
-            id="reportViewDetialsButton"
-            style="width: 200px; height: 50px; margin-top: 20px"
-          >
-            Go to DJ page
-          </button></a
-        >
-      </li>
-      <li style="list-style: none">
-        <a href="#"
-          ><button onClick="alert('This will take you to Producer Page. will be done in P4.')"
-            id="reportViewDetialsButton"
-            style="width: 200px; height: 50px; margin-top: 20px"
-          >
-            Go to Producer Page
-          </button></a
-        >
-      </li>
-      
+  <ul style="float: left">
+    <li style="list-style: none">
+      <a href="#"><button onClick="alert('This will take you to Home. will be done in P4.')"
+          id="reportViewDetialsButton" style="width: 200px; height: 50px">
+          Home page
+        </button></a>
+    </li>
+    <li style="list-style: none">
+      <a href="#"><button onclick="refreshPage()" id="reportViewDetialsButton"
+          style="width: 200px; height: 50px; margin-top: 20px">
+          Refresh Manager
+        </button></a>
+    </li>
+    <li style="list-style: none">
+      <a href="#"><button onClick="alert('This will take you to DJ page. will be done in P4.')"
+          id="reportViewDetialsButton" style="width: 200px; height: 50px; margin-top: 20px">
+          Go to DJ page
+        </button></a>
+    </li>
+    <li style="list-style: none">
+      <a href="#"><button onClick="alert('This will take you to Producer Page. will be done in P4.')"
+          id="reportViewDetialsButton" style="width: 200px; height: 50px; margin-top: 20px">
+          Go to Producer Page
+        </button></a>
+    </li>
 
-      <li style="list-style: none; position: absolute; bottom: 20px; width: 100%;">
-        <button 
-            id="questionKey"
-            style="
+
+    <li style="list-style: none; position: absolute; bottom: 20px; width: 100%;">
+      <button id="questionKey" style="
                 width: 200px;
                 height: 50px;
                 border: 2px dashed rgb(131, 112, 112);
@@ -77,145 +60,124 @@
                 display: block;
                 float: left;
             ">
-            Questions?
-        </button>
-        <div id="QuestionList" style="display: inline; float: left;padding-left: 20px;display: none;">
+        Questions?
+      </button>
+      <div id="QuestionList" style="display: inline; float: left;padding-left: 20px;display: none;">
 
-        </div>
-        
+      </div>
+
     </li>
-      
-    </ul>
- 
+
+  </ul>
 
 
 
-    <table
-      id="reportTable"
-      class="tableStyle"
-      style="float: left; margin-left: 200px"
-    >
-      <tr>
-        <th id="reportTitleID" colspan="2">Reports</th>
-      </tr>
-      <tr>
-        <td style="text-align: center">Producer Assigned</td>
-        <td style="text-align: center">DJ Played</td>
-      </tr>
-    </table>
+
+  <table id="reportTable" class="tableStyle" style="float: left; margin-left: 200px">
+    <tr>
+      <th id="reportTitleID" colspan="2">Reports</th>
+    </tr>
+    <tr>
+      <td style="text-align: center">Producer Assigned</td>
+      <td style="text-align: center">DJ Played</td>
+    </tr>
+  </table>
 
 
-    <div id="details-box">
-      <h2>Details will be shown here</h2>
-      <p>Click on Cancel to go back.</p>
-      <button id = "details-button">Cancel</button>
+  <div id="details-box">
+    <h2>Details will be shown here</h2>
+    <p>Click on Cancel to go back.</p>
+    <button id="details-button">Cancel</button>
   </div>
 
 
-  
 
 
-  
 
-    <div id="assignDJ">
-      <h1
-        style="
+
+
+  <div id="assignDJ">
+    <h1 style="
           text-align: center;
           color: rgb(221, 84, 221);
           border: 1px solid rgb(184, 55, 189);
           background-color: aliceblue;
-        "
-      >
-        Assign DJ
-      </h1>
-      <input type="date" id="calendar" name="date" />
-      <br />
-      
-      <table id="assignTable" class="tableStyle">
-      </table>
+        ">
+      Assign DJ
+    </h1>
+    <input type="date" id="calendar" name="date" />
+    <br />
 
- 
-      <div id="editBox">
-        <div id="addDiv">
-          <p>Added! Do you want another?</p>
-          <button id="noBtnId">NO</button>
-          <button id="yesBtnId">YES</button>
-        </div>
-        <form id="editFormID">
-          <!-- <label for ="name"> DJ name:</label>
-          <input type="text" id = name name="Dj name" required> -->
-            <fieldset id="radio-group">
-              <legend>Available Djs to assign: </legend>
-              <input type="radio" name="radio-group" id="radio-1">
-              <label for="radio-1">Alex</label>
-              <input type="radio" name="radio-group" id="radio-2">
-              <label for="radio-2">Emma</label>
-              <input type="radio" name="radio-group" id="radio-3">
-              <label for="radio-3">Chris</label>
-            </fieldset>
-          
-          <br>
-          
-          <input type="text" id="song" name="song name" placeholder="Write your song here" required>
-          <button id="addSongButton">
-            <span class="text">Add</span>
-          </button>
+    <table id="assignTable" class="tableStyle">
+    </table>
 
-          <br>
-          
-          <input type="date" id="editCalander" name="date" />
 
- 
-          
-        </form>
+    <div id="editBox">
+      <div id="addDiv">
+        <p>Added! Do you want another?</p>
+        <button id="noBtnId">NO</button>
+        <button id="yesBtnId">YES</button>
       </div>
-    
+      <form id="editFormID">
+        <!-- <label for ="name"> DJ name:</label>
+          <input type="text" id = name name="Dj name" required> -->
+        <fieldset id="radio-group">
+          <legend>Available Djs to assign: </legend>
+          <input type="radio" name="radio-group" id="radio-1">
+          <label for="radio-1">Alex</label>
+          <input type="radio" name="radio-group" id="radio-2">
+          <label for="radio-2">Emma</label>
+          <input type="radio" name="radio-group" id="radio-3">
+          <label for="radio-3">Chris</label>
+        </fieldset>
 
-      <button
-        id="applyKey"
-        style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px"
-      >
-        Apply
-      </button>
-      <button
-        id="editBtnKey"
-        style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px"
-      >
-        Edit
-      </button>
+        <br>
 
-
-
-
-      <form >
-        <input
-          id="searchBox"
-          type="search"
-          name="query"
-          placeholder="search here for DJ :)"
-        />
-        <button onclick="alert('will search for Djs assigned, will done when we dataBase.')"
-          id="reportViewDetialsButton"
-          style="float: inherit; width: 100px; height: 30px"
-          type="submit"
-        >
-          Search
+        <input type="text" id="song" name="song name" placeholder="Write your song here" required>
+        <button id="addSongButton">
+          <span class="text">Add</span>
         </button>
+
+        <br>
+
+        <input type="date" id="editCalander" name="date" />
+
+
+
       </form>
-
-     
-  
-      <button onclick="refreshPage()"
-        id="reportViewDetialsButton"
-        style="width: 400px; height: 50px; margin-top: 100px; font-size: 30px"
-      >
-        Clear any change
-      </button>
-
     </div>
 
-    <script type="module" src="../scriptFiles/script.js"></script>
-    <script type="module" src="../scriptFiles/questions.js"></script>
 
-  </body>
+    <button id="applyKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
+      Apply
+    </button>
+    <button id="editBtnKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
+      Edit
+    </button>
+
+
+
+
+    <form>
+      <input id="searchBox" type="search" name="query" placeholder="search here for DJ :)" />
+      <button onclick="alert('will search for Djs assigned, will done when we dataBase.')" id="reportViewDetialsButton"
+        style="float: inherit; width: 100px; height: 30px" type="submit">
+        Search
+      </button>
+    </form>
+
+
+
+    <button onclick="refreshPage()" id="reportViewDetialsButton"
+      style="width: 400px; height: 50px; margin-top: 100px; font-size: 30px">
+      Clear any change
+    </button>
+
+  </div>
+
+  <script type="module" src="../scriptFiles/script.js"></script>
+  <script type="module" src="../scriptFiles/questions.js"></script>
+
+</body>
+
 </html>

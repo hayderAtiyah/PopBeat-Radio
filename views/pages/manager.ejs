@@ -26,24 +26,24 @@
             <td style="text-align: center">DJ Played</td>
         </tr>
         <% reports.forEach(report => { %>
-            <tr>
+        <tr>
 
-                <td style="text-align: center">
-                    <%= report.songName %> was assigned by
-                        <%= report.producerName %> on
-                            <%= report.dateOfAssign %>
-                </td>
-                <td style="text-align: center">
-                    <%= report.djName %>
-                        <% if (report.playedOrNot) { %>
-                            played
-                            <% } else { %>
-                                did not play
-                                <% } %>
-                                    <%= report.songName %>
-                </td>
-            </tr>
-            <% }) %>
+            <td style="text-align: center">
+                <%= report.songName %> was assigned by
+                <%= report.producerName %> on
+                <%= report.dateOfAssign %>
+            </td>
+            <td style="text-align: center">
+                <%= report.djName %>
+                <% if (report.playedOrNot) { %>
+                played
+                <% } else { %>
+                did not play
+                <% } %>
+                <%= report.songName %>
+            </td>
+        </tr>
+        <% }) %>
     </table>
 
     <div id="assignDJ">
@@ -60,6 +60,13 @@
 
         <table id="assignTable" class="tableStyle">
         </table>
+
+        <button id="applyKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
+            Apply
+        </button>
+        <button id="editBtnKey" style="width: 200px; height: 50px; margin-top: 10px; font-size: 30px">
+            Edit
+        </button>
 
 
         <script type="module" src="/scriptFiles/script.js"></script>
