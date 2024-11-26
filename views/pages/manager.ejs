@@ -27,7 +27,7 @@
         </tr>
         <% reports.forEach(report => { %>
             <tr>
-                <!-- First part of the row -->
+
                 <td style="text-align: center">
                     <%= report.songName %> was assigned by
                         <%= report.producerName %> on
@@ -57,23 +57,13 @@
         </h1>
         <input type="date" id="calendar" name="date" />
         <br />
+
         <table id="assignTable" class="tableStyle">
-            <% assignedDj.forEach(assign => { %>
-                <tr>
-                    <td>
-                        <%= assign.djName %>
-                    </td>
-                </tr>
-                <% }) %>
         </table>
 
 
-
-
-
-
-
-
+        <script type="module" src="/scriptFiles/script.js"></script>
+        <script type="module" src="/scriptFiles/questions.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,3 @@
-import Questions from './questions.js';
-
 let reportCounter = 0;
 let assignDJCounter = 0;
 let assignDJArr = [];
@@ -73,12 +71,18 @@ function generateReportTable(reportCounter) {
 /**
  * to cancel the view details after it been clicked.
  */
+
+
+/*
 document.getElementById("details-button").addEventListener("click", () => {
         document.getElementById("details-box").style.display = "none";
     })
-    /**
-     * method to dynamically assign Dj to a song with a date. 
-     */
+*/
+
+
+/**
+ * method to dynamically assign Dj to a song with a date. 
+ */
 function generateAssignDJ(DjName, song, date) {
     let tr = document.createElement("tr");
     let td = document.createElement("td");
@@ -105,8 +109,25 @@ function generateAssignDJ(DjName, song, date) {
     assignDJArr.push(tr);
     log(assignDJArr);
     assignDJCounter++;
+    if (document.getElementById("assignTable") == true) {
+        console.log("found it");
+    }
     document.getElementById("assignTable").appendChild(tr);
 }
+
+document.addEventListener("DOMContentLoaded", async() => {
+    try {
+        const response = await fetch('/api/assignedDjs');
+        const assignedDjs = await response.json();
+
+        assignedDjs.forEach(dj => {
+            generateAssignDJ(dj.djName, dj.songName, dj.dateOfAssign);
+        });
+    } catch (error) {
+        console.error("Error fetching assigned DJs:", error);
+    }
+});
+
 
 
 let keysPressed = {};
@@ -229,7 +250,7 @@ function createErrorMsg(id, element) {
 }
 
 
-
+/*
 document.getElementById("yesBtnId").addEventListener("click", () => {
     restEditUI();
     addDiv.style.display = "none";
@@ -241,6 +262,7 @@ document.getElementById("yesBtnId").addEventListener("click", () => {
 
     assignDjEdit();
 });
+
 
 
 
@@ -304,17 +326,15 @@ questionButton.addEventListener("click", () => {
     }
 });
 
+*/
 
+//loadExistingAssignments();
+//restEditUI();
 
-loadExistingAssignments();
-restEditUI();
-
-generateReportTable(reportCounter);
+//generateReportTable(reportCounter);
 //shortcut to search.
 shortCutTrigger("shift", "f", "searchBox");
 //shortcut to apply.
 shortCutTrigger("shift", "enter", "applyKey");
-generateAssignDJ("Chris", "love story", "11-09-2024");
-generateAssignDJ("Alex", "warriors ", "11-10-2024");
-generateAssignDJ("Hayder", "counting stairs", "11-11-2024");
-assignDjEdit();
+
+//assignDjEdit();

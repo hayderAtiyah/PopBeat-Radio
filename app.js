@@ -56,12 +56,24 @@ async function fetchReports() {
 //Done by Hayder
 async function fetchAssigned() {
     try {
-        return await AssignedDJ.find();
+        const data = await AssignedDJ.find();
+        return data;
     } catch (error) {
         console.error("Error fetching assigned DJ:", error);
         return [];
     }
 }
+
+app.get('/api/assignedDjs', async(req, res) => {
+    try {
+        const data = await fetchAssigned();
+        res.json(data); // Send data to the client
+    } catch (error) {
+        console.error("Error fetching assigned DJs:", error);
+        res.status(500).json({ error: "Failed to fetch assigned DJs" });
+    }
+});
+
 
 
 //Done by Hayder
