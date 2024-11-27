@@ -8,10 +8,9 @@ app.set('view engine', 'ejs');
 app.set('views', './views/pages');
 
 //Done by Hayder Atiyah
-mongoose.connect('mongodb+srv://swe432:pineapple@project4.qwvwv.mongodb.net/?retryWrites=true&w=majority&appName=project4', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect('mongodb+srv://swe432:pineapple@project4.qwvwv.mongodb.net/?retryWrites=true&w=majority&appName=project4'
+
+).then(() => {
     console.log("Connected to MongoDB Atlas!");
 }).catch((error) => {
     console.error("Error happened:", error);
@@ -102,7 +101,7 @@ async function fetchReports() {
 async function fetchAssigned() {
     try {
         const data = await AssignedDJ.find();
-        console.log(data);
+        // console.log(data);
         return data;
     } catch (error) {
         console.error("Error fetching assigned DJ:", error);
@@ -129,7 +128,7 @@ app.get('/api/assignedDjs', async(req, res) => {
 async function fetchAvailableDjs() {
     try {
         const data = await AvailableDjs.find();
-        console.log(data);
+        //console.log(data);
         return data;
     } catch (error) {
         console.error("Error fetching available Djs:", error);
@@ -153,7 +152,7 @@ app.get('/api/availableDjs', async(req, res) => {
 
 
 
-//Done by Hayder
+//Done by Hayder Atiyah
 app.get('/manager', async(req, res) => {
     try {
         const reports = await fetchReports();
